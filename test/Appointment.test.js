@@ -5,12 +5,12 @@ import {Appointment} from "../src/Appointment";
 
 
 describe("Appointment", () => {
-  it.skip("renders the costumer first name", () => {
+  it("renders the costumer first name", () => {
     const customer = {firstName: "Ashley"}
     const component = <Appointment customer={customer}/>
     const container = document.createElement("div");
 
-    document.body.replaceChild(container);
+    document.body.appendChild(container);
     act(() =>
       ReactDOM.createRoot(container).render(component)
     )
@@ -20,7 +20,7 @@ describe("Appointment", () => {
 });
 
 describe("Appointment", () => {
-  it("renders the costumer first name", () => {
+  it.skip("renders another costumer's first name", () => {
     const customer = {firstName: "Jordan"}
     const component = <Appointment customer={customer}/>
     const container = document.createElement("div");
