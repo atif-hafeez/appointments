@@ -10,7 +10,7 @@ describe("Appointment", () => {
     const component = <Appointment customer={customer}/>
     const container = document.createElement("div");
 
-    document.body.appendChild(container);
+    document.body.replaceChildren(container);
     act(() =>
       ReactDOM.createRoot(container).render(component)
     )
@@ -20,12 +20,12 @@ describe("Appointment", () => {
 });
 
 describe("Appointment", () => {
-  it.skip("renders another costumer's first name", () => {
+  it("renders another costumer's first name", () => {
     const customer = {firstName: "Jordan"}
     const component = <Appointment customer={customer}/>
     const container = document.createElement("div");
 
-    document.body.appendChild(container);
+    document.body.replaceChildren(container);
     act(() =>
       ReactDOM.createRoot(container).render(component)
     )
