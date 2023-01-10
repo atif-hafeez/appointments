@@ -42,7 +42,7 @@ describe("AppointmentsDayView", () => {
     },
     {
       startsAt: today.setHours(13, 0),
-      customer: {lastName: "Jordan"}
+      customer: {firstName: "Jordan"}
     }
   ];
 
