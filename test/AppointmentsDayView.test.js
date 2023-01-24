@@ -37,13 +37,20 @@ describe("AppointmentsDayView", () => {
   const today = new Date();
   const twoAppointments = [
     {
-      startsAt: today.setHours(12, 0),
-      customer: {firstName: "Ashley"}
+      startsAt: today.setHours(12,0),
+      customer: {
+        firstName: "Ashley",
+        lastName: "Keeling",
+        phoneNumber: "(554) 338-1814"
+      },
+      stylist: "Maggie",
+      service: "Beard trim",
+      notes: "Necessitatibus"
     },
     {
       startsAt: today.setHours(13, 0),
       customer: {firstName: "Jordan"}
-    }
+    },
   ];
 
   beforeEach(() => {
@@ -145,9 +152,72 @@ describe("AppointmentsDayView", () => {
           appointments={twoAppointments}
         />
       )
-      
       const table = 
         document.querySelector('table');
       expect(table).not.toBeNull()     
+    })
+
+    it("renders a table with 5 rows", () => {
+      render(
+        <AppointmentsDayView
+          appointments={twoAppointments}
+        />
+      )
+
+      const rows = document.querySelectorAll("table > tr")
+      expect(rows).toHaveLength(5)
+    })
+
+    it("render the five appointment fields", () => {
+      render (
+        <AppointmentsDayView
+          appointments={twoAppointments}
+        />
+      )
+
+      expect(document.body.textContent).toContain("Customer")
+      expect(document.body.textContent).toContain("Phone number")
+      expect(document.body.textContent).toContain("Stylist")
+      expect(document.body.textContent).toContain("Service")
+      expect(document.body.textContent).toContain("Notes")
+
+    })
+
+    it("render the five appointment values", () => {
+      render (
+        <AppointmentsDayView
+          appointments={twoAppointments}
+        />
+      )
+
+      expect(document.body.textContent).toContain("Ashley Keeling")
+      expect(document.body.textContent).toContain("(554) 338-1814")
+      expect(document.body.textContent).toContain("Maggie")
+      expect(document.body.textContent).toContain("Beard trim")
+      expect(document.body.textContent).toContain("Necessitatibus")
+    })
+
+    it("renders the heading element", () => {
+      render(
+        <AppointmentsDayView
+          appointments={twoAppointments}
+        />
+      )
+
+      const heading = 
+        document.querySelector("h1");
+      expect(heading).not.toBeNull();
+    })
+
+    it("render a heading showing the appointment date", () => {
+      render(
+        <AppointmentsDayView
+          appointments={twoAppointments}
+        />
+      )
+      
+      expect(document.body.textContent)
+        .toContain("Today's appointment at 12:00")
+
     })
 })

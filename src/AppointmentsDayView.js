@@ -1,10 +1,29 @@
 import React, {useState} from "react";
 
-export const Appointment = ({customer}) => (
+export const Appointment = ({startsAt, customer, stylist, service, notes}) => (
   <>
-    <div>{customer.firstName}</div>
+    <h1>Today's appointment at {appointmentTimeOfDay(startsAt)} </h1>
     <table>
-      
+      <tr>
+        <td>Customer</td>
+        <td>{customer.firstName} {customer.lastName} </td>
+      </tr>
+      <tr>
+        <td>Phone number</td>
+        <td>{customer.phoneNumber}</td>
+      </tr>
+      <tr>
+        <td>Stylist</td>
+        <td>{stylist}</td>
+      </tr>
+      <tr>
+        <td>Service</td>
+        <td>{service}</td>
+      </tr>
+      <tr>
+        <td>Notes</td>
+        <td>{notes}</td>
+      </tr>
     </table>
   </>  
 );
