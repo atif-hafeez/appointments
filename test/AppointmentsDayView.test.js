@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {act} from "react-dom/test-utils"
-import {Appointment, AppointmentsDayView} from "../src/Appointment";
+import {Appointment, AppointmentsDayView} from "../src/AppointmentsDayView";
 
 
 describe("Appointment", () => {
@@ -137,5 +137,17 @@ describe("AppointmentsDayView", () => {
         expect(document.body.textContent).toContain(
           "Jordan"
         );
+    })
+
+    it("renders a table element", () => {
+      render(
+        <AppointmentsDayView
+          appointments={twoAppointments}
+        />
+      )
+      
+      const table = 
+        document.querySelector('table');
+      expect(table).not.toBeNull()     
     })
 })
