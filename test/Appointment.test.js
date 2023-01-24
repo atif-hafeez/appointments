@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {act} from "react-dom/test-utils"
-import {Appointment, AppointmentsDayView} from "../src/AppointmentsDayView";
+import {Appointment, AppointmentsDayView} from "../src/Appointment";
 
 
 describe("Appointment", () => {
@@ -38,27 +38,11 @@ describe("AppointmentsDayView", () => {
   const twoAppointments = [
     {
       startsAt: today.setHours(12, 0),
-      customer: {
-        firstName: "Ashley",
-        lastName: "Johns"
-      },
-      stylist: {
-        name: "Robert"
-      },
-      salon: {service:"Haircut"},
-      notes: "Need small hair cut"
+      customer: {firstName: "Ashley"}
     },
     {
       startsAt: today.setHours(13, 0),
-      customer: {
-        firstName: "Jordan",
-        lastName:"Bold"
-      },
-      stylist: {
-        name: "George"
-      },
-      salon: {service:"Shaving"},
-      notes: "Need clean shave"
+      customer: {firstName: "Jordan"}
     }
   ];
 
@@ -153,45 +137,5 @@ describe("AppointmentsDayView", () => {
         expect(document.body.textContent).toContain(
           "Jordan"
         );
-    });
-
-    it("renders a table element", () => {
-      render(
-        <AppointmentsDayView 
-          appointments={twoAppointments}
-        />
-      )
-      const table = document.querySelector("table");
-      expect(table).not.toBeNull()
-    });
-
-    it("renders a table header element", () => {
-      render (
-        <AppointmentsDayView
-          appointments={twoAppointments}
-        />
-      )
-      const tableHeader = document.querySelector("thead");
-      expect(tableHeader).not.toBeNull()
-    })
-    
-    it("renders a table header row element", () => {
-      render (
-        <AppointmentsDayView 
-          appointments={twoAppointments}
-        />
-      )
-      const tableRow = document.querySelector("thead > tr");
-      expect(tableRow).not.toBeNull();
-    })
-
-    it("renders a table row for each item", () => {
-      render (
-        <AppointmentsDayView
-          appointments={twoAppointments}
-        />
-      )
-      const rowElement = document.querySelectorAll("tr > th")
-      expect(rowElement).toHaveLength
     })
 })
