@@ -38,7 +38,7 @@ describe("Appointment", () => {
   it("renders the customer first name", () => {
     const customer = { firstName: "Ashley" };
     render(<Appointment customer={customer} />);
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Ashley"
     );
   });
@@ -46,7 +46,7 @@ describe("Appointment", () => {
   it("renders another customer first name", () => {
     const customer = { firstName: "Jordan" };
     render(<Appointment customer={customer} />);
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Jordan"
     );
   });
@@ -54,7 +54,7 @@ describe("Appointment", () => {
   it("renders the customer last name", () => {
     const customer = { lastName: "Jones" };
     render(<Appointment customer={customer} />);
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Jones"
     );
   });
@@ -62,7 +62,7 @@ describe("Appointment", () => {
   it("renders another customer last name", () => {
     const customer = { lastName: "Smith" };
     render(<Appointment customer={customer} />);
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Smith"
     );
   });
@@ -70,7 +70,7 @@ describe("Appointment", () => {
   it("renders the customer phone number", () => {
     const customer = { phoneNumber: "123456789" };
     render(<Appointment customer={customer} />);
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "123456789"
     );
   });
@@ -78,7 +78,7 @@ describe("Appointment", () => {
   it("renders another customer phone number", () => {
     const customer = { phoneNumber: "234567890" };
     render(<Appointment customer={customer} />);
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "234567890"
     );
   });
@@ -90,7 +90,7 @@ describe("Appointment", () => {
         stylist="Sam"
       />
     );
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Sam"
     );
   });
@@ -102,7 +102,7 @@ describe("Appointment", () => {
         stylist="Jo"
       />
     );
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Jo"
     );
   });
@@ -114,7 +114,7 @@ describe("Appointment", () => {
         service="Cut"
       />
     );
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Cut"
     );
   });
@@ -126,7 +126,7 @@ describe("Appointment", () => {
         service="Blow-dry"
       />
     );
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "Blow-dry"
     );
   });
@@ -138,7 +138,7 @@ describe("Appointment", () => {
         notes="abc"
       />
     );
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "abc"
     );
   });
@@ -150,7 +150,7 @@ describe("Appointment", () => {
         notes="def"
       />
     );
-    expect(appointmentTable().textContent).toContain(
+    expect(appointmentTable()).toContainText(
       "def"
     );
   });
@@ -233,17 +233,17 @@ describe("AppointmentsDayView", () => {
 
     const listChildren =
       document.querySelectorAll("li");
-    expect(listChildren[0].textContent).toEqual(
+    expect(listChildren[0]).toContainText(
       "12:00"
     );
-    expect(listChildren[1].textContent).toEqual(
+    expect(listChildren[1]).toContainText(
       "13:00"
     );
   });
 
   it("initially shows a message saying there are no appointments today", () => {
     render(<AppointmentsDayView appointments={[]} />);
-    expect(document.body.textContent).toContain(
+    expect(document.body).toContainText(
       "There are no appointments scheduled for today."
     );
   });
@@ -254,7 +254,7 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    expect(document.body.textContent).toContain(
+    expect(document.body).toContainText(
       "Ashley"
     );
   });
@@ -282,7 +282,7 @@ describe("AppointmentsDayView", () => {
     const button =
       document.querySelectorAll("button")[1];
     click(button);
-    expect(document.body.textContent).toContain(
+    expect(document.body).toContainText(
       "Jordan"
     );
   });
