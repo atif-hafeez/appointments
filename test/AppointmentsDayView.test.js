@@ -7,9 +7,12 @@ import {
 } from "../src/AppointmentsDayView";
 import { 
   initializeReactContainer,
-  container,
   render, 
   click,
+  element,
+  elements,
+  typesOf,
+  textOf,
 } from "./reactTestExtension";
 
 describe("Appointment", () => {
@@ -19,14 +22,12 @@ describe("Appointment", () => {
     phoneNumber: "",
   };
 
-  let container;
-
   beforeEach(() => {
     initializeReactContainer();
   });
 
   const appointmentTable = () =>
-    document.querySelector(
+    element(
       "#appointmentView > table"
     );
 
@@ -158,7 +159,7 @@ describe("Appointment", () => {
   it("renders an h3 element", () => {
     render(<Appointment customer={blankCustomer} />);
     expect(
-      document.querySelector("h3")
+      element("h3")
     ).not.toBeNull();
   });
 
@@ -172,7 +173,7 @@ describe("Appointment", () => {
       />
     );
     expect(
-      document.querySelector("h3").textContent
+      element("h3").textContent
     ).toEqual("Today’s appointment at 09:00");
   });
 });
@@ -190,8 +191,6 @@ describe("AppointmentsDayView", () => {
     },
   ];
 
-  let container;
-
   beforeEach(() => {
     initializeReactContainer();
   });
@@ -200,7 +199,7 @@ describe("AppointmentsDayView", () => {
   it("renders a div with the right id", () => {
     render(<AppointmentsDayView appointments={[]} />);
     expect(
-      document.querySelector(
+      element(
         "div#appointmentsDayView"
       )
     ).not.toBeNull();
@@ -208,7 +207,7 @@ describe("AppointmentsDayView", () => {
 
   it("renders an ol element to display appointments", () => {
     render(<AppointmentsDayView appointments={[]} />);
-    const listElement = document.querySelector("ol");
+    const listElement = element("ol");
     expect(listElement).not.toBeNull();
   });
 
@@ -220,7 +219,7 @@ describe("AppointmentsDayView", () => {
     );
 
     const listChildren =
-      document.querySelectorAll("ol > li");
+      elements("ol > li");
     expect(listChildren).toHaveLength(2);
   });
 
@@ -231,14 +230,9 @@ describe("AppointmentsDayView", () => {
       />
     );
 
-    const listChildren =
-      document.querySelectorAll("li");
-    expect(listChildren[0]).toContainText(
-      "12:00"
-    );
-    expect(listChildren[1]).toContainText(
-      "13:00"
-    );
+    expect(textOf(elements("li"))).toEqual([
+      "12:00", "13:00"
+    ]);
   });
 
   it("initially shows a message saying there are no appointments today", () => {
@@ -267,7 +261,7 @@ describe("AppointmentsDayView", () => {
     );
 
     const buttons =
-      document.querySelectorAll("li > button");
+      elements("li > button");
 
     expect(buttons).toHaveLength(2);
     expect(buttons[0].type).toEqual("button");
@@ -280,7 +274,7 @@ describe("AppointmentsDayView", () => {
       />
     );
     const button =
-      document.querySelectorAll("button")[1];
+      elements("button")[1];
     click(button);
     expect(document.body).toContainText(
       "Jordan"
@@ -294,7 +288,7 @@ describe("AppointmentsDayView", () => {
       />
     );
     const button =
-      document.querySelectorAll("button")[1];
+      elements("button")[1];
     click(button);
     expect(button.className).toContain("toggled");
   });
@@ -306,7 +300,7 @@ describe("AppointmentsDayView", () => {
       />
     );
     const button =
-      document.querySelectorAll("button")[1];
+      elements("button")[1];
     expect(button.className).not.toContain("toggled");
   });
 });
