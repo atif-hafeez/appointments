@@ -191,6 +191,8 @@ describe("AppointmentsDayView", () => {
     },
   ];
 
+  const secondButton = () => elements("button")[1];
+
   beforeEach(() => {
     initializeReactContainer();
   });
@@ -207,8 +209,8 @@ describe("AppointmentsDayView", () => {
 
   it("renders an ol element to display appointments", () => {
     render(<AppointmentsDayView appointments={[]} />);
-    const listElement = element("ol");
-    expect(listElement).not.toBeNull();
+    
+    expect(element("ol")).not.toBeNull();
   });
 
   it("renders an li for each appointment", () => {
@@ -260,11 +262,16 @@ describe("AppointmentsDayView", () => {
       />
     );
 
-    const buttons =
+/*     const buttons =
       elements("li > button");
 
     expect(buttons).toHaveLength(2);
-    expect(buttons[0].type).toEqual("button");
+    expect(buttons[0].type).toEqual("button"); */
+
+    expect(typesOf(elements("li > *"))).toEqual([
+      "button",
+      "button"
+    ])
   });
 
   it("renders another appointment when selected", () => {
@@ -273,9 +280,8 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      elements("button")[1];
-    click(button);
+    
+    click(secondButton());
     expect(document.body).toContainText(
       "Jordan"
     );
@@ -287,10 +293,9 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      elements("button")[1];
-    click(button);
-    expect(button.className).toContain("toggled");
+    
+    click(secondButton());
+    expect(secondButton().className).toContain("toggled");
   });
 
   it("does not add toggled class if button is not selected", () => {
@@ -299,8 +304,7 @@ describe("AppointmentsDayView", () => {
         appointments={twoAppointments}
       />
     );
-    const button =
-      elements("button")[1];
-    expect(button.className).not.toContain("toggled");
+    
+    expect(secondButton().className).not.toContain("toggled");
   });
 });
