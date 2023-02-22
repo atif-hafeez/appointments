@@ -7,6 +7,8 @@ import {
   form,
   field,
   submit,
+  submitButton,
+  change,
   elements,
   typesOf,
   textOf,
@@ -62,8 +64,7 @@ describe("Customer Form", () => {
 
   it("renders a Submit button", () => {
     render(<CustomerForm original={blankCustomer}/>);
-    const button = element("input[type=submit]");
-    expect(button).not.toBeNull();
+    expect(submitButton()).not.toBeNull();
   });
 
   it("saves existing first name when submitted", () => {
@@ -91,5 +92,20 @@ describe("Customer Form", () => {
     );
     const event = submit(form());
     expect(event.defaultPrevented).toBe(true);
+  })
+
+  it("saves new first name when submitted", () => {
+    expect.hasAssertions();
+    render (
+      <CustomerForm
+        original={blankCustomer}
+        onSubmit={({firstName}) =>
+          expect(firstName).toEqual("Jamie")
+        }
+      />
+    );
+
+    change(field("firstName"), "Jamie");
+    click(submitButton());
   })
 })
