@@ -18,7 +18,8 @@ import {CustomerForm} from "../src/CustomerForm"
 describe("Customer Form", () => {
 
   const blankCustomer = {
-    firstName: ""
+    firstName: "",
+    lastName: "",
   }
 
   beforeEach(() => {
@@ -30,13 +31,13 @@ describe("Customer Form", () => {
     expect(form()).not.toBeNull();
   });
 
-  const itRendersAsATextBox = (firstName) => 
+  const itRendersAsATextBox = (fieldName) => 
     it("renders as a textbox", () => {
       render(<CustomerForm original={blankCustomer}/>)
       
-      expect(field(firstName)).not.toBeNull();
-      expect(field(firstName).tagName).toEqual("INPUT");
-      expect(field(firstName).type).toEqual("text")
+      expect(field(fieldName)).not.toBeNull();
+      expect(field(fieldName).tagName).toEqual("INPUT");
+      expect(field(fieldName).type).toEqual("text")
     });
 
   const itIncludesTheExistingValue = (fieldName, existing) => {
@@ -112,6 +113,10 @@ describe("Customer Form", () => {
     itAssignsAnIdThatMatchesTheLabelId("firstName");
     itSubmitExistingValue("firstName", "Ashley");
     itSubmitsNewValue("firstName", "Jamie");
+  })
+
+  describe("last name field", () => {
+    itRendersAsATextBox("lastName");
   })
   
 
