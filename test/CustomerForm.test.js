@@ -20,6 +20,7 @@ describe("Customer Form", () => {
   const blankCustomer = {
     firstName: "",
     lastName: "",
+    phoneNumber:"",
   }
 
   beforeEach(() => {
@@ -122,6 +123,15 @@ describe("Customer Form", () => {
     itAssignsAnIdThatMatchesTheLabelId("lastName");
     itSubmitExistingValue("lastName", "Jones");
     itSubmitsNewValue("lastName", "Camile");
+  })
+
+  describe("phone number field", () => {
+    itRendersAsATextBox("phoneNumber");
+    itIncludesTheExistingValue("phoneNumber", "0501481734");
+    itRendersALabel("phoneNumber", "Phone Number");
+    itAssignsAnIdThatMatchesTheLabelId("phoneNumber");
+    itSubmitExistingValue("phoneNumber", "0501481734");
+    itSubmitsNewValue("phoneNumber", "0506569369")
   })
   
 
