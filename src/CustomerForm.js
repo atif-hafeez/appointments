@@ -38,7 +38,6 @@ export const CustomerForm = ({original, onSubmit}) => {
         name="phoneNumber"
         id="phoneNumber"
         value={customer.phoneNumber}
-        readOnly
         onChange={handleChange}
       />
       <input type="submit" value="Add"/>
