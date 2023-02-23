@@ -30,29 +30,45 @@ describe("Customer Form", () => {
     expect(form()).not.toBeNull();
   });
 
+  const itRendersAsATextBox = (firstName) => 
+    it("renders as a textbox", () => {
+      render(<CustomerForm original={blankCustomer}/>)
+      
+      expect(field(firstName)).not.toBeNull();
+      expect(field(firstName).tagName).toEqual("INPUT");
+      expect(field(firstName).type).toEqual("text")
+    });
+
+  const itIncludesTheExistingValue = (fieldName, existing) => {
+    it("includes the existing value", () => {
+      const customer = {[fieldName]: existing};
+      render (<CustomerForm original={customer} />);
+      expect(field(fieldName).value).toEqual(existing);
+    })
+  }
+
   describe("first name field", () => {
     
-    const itRendersAsATextBox = (firstName) => 
-      it("renders as a textbox", () => {
-        render(<CustomerForm original={blankCustomer}/>)
-        
-        expect(field(firstName)).not.toBeNull();
-        expect(field(firstName).tagName).toEqual("INPUT");
-        expect(field(firstName).type).toEqual("text")
-      });
+    
     itRendersAsATextBox("firstName");
+    itIncludesTheExistingValue("firstName", "Ashley")
+      
 
-    it("includes the existing value", () => {
-      const customer = {firstName: "Ashley"};
-      render (<CustomerForm original={customer} />);
-      expect(field("firstName").value).toEqual("Ashley");
-    })
-
-    it("renders a label", () => {
+    const itRendersALabel = (fieldName, text) => {
+      it("renders a label", () => {
       render(<CustomerForm original={blankCustomer} />);
-      const label = element("label[for=firstName]");
+      const label = element(`label[for=${fieldName}]`);
       expect(label).not.toBeNull();
-    })
+      });
+      it(`renders '${text}' as the label content`, () => {
+        render(<CustomerForm original={blankCustomer} />);
+        const label = element(`label[for=${fieldName}]`);
+        expect(label).toContainText(text);
+      })
+    }
+    itRendersALabel("firstName", "First Name")
+
+
 
     it("assigns an id that matches the label id", () => {
       render(<CustomerForm original={blankCustomer} />);
@@ -93,11 +109,7 @@ describe("Customer Form", () => {
 
   })
 
-  it("renders 'First Name' as the first name label", () => {
-    render(<CustomerForm original={blankCustomer} />);
-    const label = element("label[for=firstName]");
-    expect(label).toContainText("First Name");
-  })
+
 
   
 
