@@ -31,13 +31,16 @@ describe("Customer Form", () => {
   });
 
   describe("first name field", () => {
-    it("renders as a textbox", () => {
-      render(<CustomerForm original={blankCustomer}/>)
-      
-      expect(field("firstName")).not.toBeNull();
-      expect(field("firstName").tagName).toEqual("INPUT");
-      expect(field("firstName").type).toEqual("text")
-    })
+    
+    const itRendersAsATextBox = (firstName) => 
+      it("renders as a textbox", () => {
+        render(<CustomerForm original={blankCustomer}/>)
+        
+        expect(field(firstName)).not.toBeNull();
+        expect(field(firstName).tagName).toEqual("INPUT");
+        expect(field(firstName).type).toEqual("text")
+      });
+    itRendersAsATextBox("firstName");
 
     it("includes the existing value", () => {
       const customer = {firstName: "Ashley"};
