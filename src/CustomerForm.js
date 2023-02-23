@@ -7,6 +7,11 @@ export const CustomerForm = ({original, onSubmit}) => {
     setCustomer((customer) => ({
       ...customer, firstName: target.value
     }));
+  
+  const handleChangeLastName = ({target}) => 
+    setCustomer((customer) => ({
+      ...customer, lastName: target.value
+    }));
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,6 +27,14 @@ export const CustomerForm = ({original, onSubmit}) => {
         id="firstName"
         value={customer.firstName}
         onChange={handleChangeFirstName}
+      />
+      <label htmlFor="lastName">Last Name</label>
+      <input 
+        type="text"
+        name="lastName"
+        id="lastName"
+        value={customer.lastName}
+        onChange={handleChangeLastName}
       />
       <input type="submit" value="Add"/>
     </form>

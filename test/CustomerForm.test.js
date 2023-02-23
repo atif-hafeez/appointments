@@ -67,7 +67,7 @@ describe("Customer Form", () => {
     it("assigns an id that matches the label id", () => {
       render(<CustomerForm original={blankCustomer} />);
       
-      expect(field(fieldName).id).toEqual("firstName");
+      expect(field(fieldName).id).toEqual(fieldName);
     });
   }
 
@@ -117,6 +117,11 @@ describe("Customer Form", () => {
 
   describe("last name field", () => {
     itRendersAsATextBox("lastName");
+    itIncludesTheExistingValue("lastName", "Jones");
+    itRendersALabel("lastName", "Last Name");
+    itAssignsAnIdThatMatchesTheLabelId("lastName");
+    itSubmitExistingValue("lastName", "Jones");
+    itSubmitsNewValue("lastName", "Camile");
   })
   
 
