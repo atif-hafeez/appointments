@@ -3,19 +3,10 @@ import React, {useState} from "react";
 export const CustomerForm = ({original, onSubmit}) => {
   const [customer, setCustomer] = useState(original);
 
-  const handleChangeFirstName = ({target}) => 
-    setCustomer((customer) => ({
-      ...customer, firstName: target.value
-    }));
-  
-  const handleChangeLastName = ({target}) => 
-    setCustomer((customer) => ({
-      ...customer, lastName: target.value
-    }));
-
-  const handleChangePhoneNumber=({target}) =>
-    setCustomer((customer) => ({
-      ...customer, phoneNumber: target.value
+  const handleChange = ({target}) => 
+    setCustomer(customer => ({
+      ...customer,
+      [target.name]: target.value
     }))
 
   const handleSubmit = (event) => {
@@ -31,7 +22,7 @@ export const CustomerForm = ({original, onSubmit}) => {
         name="firstName"
         id="firstName"
         value={customer.firstName}
-        onChange={handleChangeFirstName}
+        onChange={handleChange}
       />
       <label htmlFor="lastName">Last Name</label>
       <input 
@@ -39,7 +30,7 @@ export const CustomerForm = ({original, onSubmit}) => {
         name="lastName"
         id="lastName"
         value={customer.lastName}
-        onChange={handleChangeLastName}
+        onChange={handleChange}
       />
       <label htmlFor="phoneNumber">Phone Number</label>
       <input
@@ -48,7 +39,7 @@ export const CustomerForm = ({original, onSubmit}) => {
         id="phoneNumber"
         value={customer.phoneNumber}
         readOnly
-        onChange={handleChangePhoneNumber}
+        onChange={handleChange}
       />
       <input type="submit" value="Add"/>
     </form>
