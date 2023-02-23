@@ -47,70 +47,72 @@ describe("Customer Form", () => {
     })
   }
 
-  describe("first name field", () => {
-    
-    
-    itRendersAsATextBox("firstName");
-    itIncludesTheExistingValue("firstName", "Ashley")
-      
-
-    const itRendersALabel = (fieldName, text) => {
-      it("renders a label", () => {
+  const itRendersALabel = (fieldName, text) => {
+    it("renders a label", () => {
+    render(<CustomerForm original={blankCustomer} />);
+    const label = element(`label[for=${fieldName}]`);
+    expect(label).not.toBeNull();
+    });
+    it(`renders '${text}' as the label content`, () => {
       render(<CustomerForm original={blankCustomer} />);
       const label = element(`label[for=${fieldName}]`);
-      expect(label).not.toBeNull();
-      });
-      it(`renders '${text}' as the label content`, () => {
-        render(<CustomerForm original={blankCustomer} />);
-        const label = element(`label[for=${fieldName}]`);
-        expect(label).toContainText(text);
-      })
-    }
-    itRendersALabel("firstName", "First Name")
+      expect(label).toContainText(text);
+    })
+  }
 
-
-
+  const itAssignsAnIdThatMatchesTheLabelId = (
+    fieldName
+  ) => {
     it("assigns an id that matches the label id", () => {
       render(<CustomerForm original={blankCustomer} />);
       
-      expect(field("firstName").id).toEqual("firstName");
+      expect(field(fieldName).id).toEqual("firstName");
     });
+  }
 
+  const itSubmitExistingValue = (fieldName, value) => {
     it("saves existing value when submitted", () => {
       expect.hasAssertions();
   
-      const customer = {firstName:"Ashley"};
+      const customer = {[fieldName]:value};
       render(
         <CustomerForm
           original={customer}
-          onSubmit={({firstName}) => 
-            expect(firstName).toEqual("Ashley")
+          onSubmit={(props) => 
+            expect(props[fieldName]).toEqual(value)
           }
         />
       )
-      const button = element("input[type=submit]");
-      click(button);
+      
+      click(submitButton());
     });
+  }
 
+  const itSubmitsNewValue = (fieldName, value) => {
     it("saves new value when submitted", () => {
       expect.hasAssertions();
       render (
         <CustomerForm
           original={blankCustomer}
-          onSubmit={({firstName}) =>
-            expect(firstName).toEqual("Jamie")
+          onSubmit={(props) =>
+            expect(props[fieldName]).toEqual(value)
           }
         />
       );
   
-      change(field("firstName"), "Jamie");
+      change(field(fieldName), value);
       click(submitButton());
     })
+  };
 
+  describe("first name field", () => {
+    itRendersAsATextBox("firstName");
+    itIncludesTheExistingValue("firstName", "Ashley");
+    itRendersALabel("firstName", "First Name");
+    itAssignsAnIdThatMatchesTheLabelId("firstName");
+    itSubmitExistingValue("firstName", "Ashley");
+    itSubmitsNewValue("firstName", "Jamie");
   })
-
-
-
   
 
   it("renders a Submit button", () => {
