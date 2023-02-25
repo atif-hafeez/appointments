@@ -124,6 +124,62 @@ describe("AppointmentForm", () => {
         "10:30"
       );
     })
+
+    it("renders and empty cell at the start of the header row", () => {
+      render(
+        <AppointmentForm
+          original={blankAppointment}
+        />
+      );
+      const headerRow = element("thead > tr");
+      expect(headerRow.firstChild).toContainText("");
+    });
+
+    it("renders a week of available dates", () => {
+      const specificDate = new Date(2018, 11, 1);
+      render(
+        <AppointmentForm
+          original={blankAppointment}
+          today={specificDate}
+        />
+      );
+      const dates = elements(
+        "thead >* th:not(:first-child)"
+      );
+      expect(dates).toHaveLength(7);
+      expect(dates[0]).toContainText("Sat 01");
+      expect(dates[1]).toContainText("Sun 02");
+      expect(dates[6]).toContainText("Fri 07");
+    });
+
+    it("renders radio buttons in the correct table cell positions", () => {
+      const cellsWithRadioButtons = () =>
+        elements("input[type=radio]").map((el) =>
+          elements("td").indexOf(el.parentNode)
+        );
+
+      const oneDayInMs = 24 * 60 * 60 * 1000;
+      const today = new Date();
+      const tomorrow = new Date(
+        today.getTime() + oneDayInMs
+      );
+
+      const availableTimeSlots = [
+        { startsAt: today.setHours(9, 0, 0, 0) },
+        { startsAt: today.setHours(9, 30, 0, 0) },
+        { startsAt: tomorrow.setHours(9, 30, 0, 0) },
+      ];
+      render(
+        <AppointmentForm
+          original={blankAppointment}
+          availableTimeSlots={availableTimeSlots}
+          today={today}
+        />
+      );
+      expect(cellsWithRadioButtons()).toEqual([
+        0, 7, 8,
+      ]);
+    });
   });
 
  
